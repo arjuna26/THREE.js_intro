@@ -5,18 +5,27 @@
     <link rel="icon" type="image/svg+xml" href="/vite.svg" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Arjuna's Website</title>
+    <link rel="stylesheet" href="/src/styles.css" />
+    <script src="https://unpkg.com/scrollreveal@4.0.0/dist/scrollreveal.min.js"></script>
   </head>
   <body>
+    <div id="loading-screen">
+      <div class="loading-text">Loading...</div>
+    </div>
+    
     <canvas id="bg"></canvas>
 
     <main>
-      <header>
-        <h1>Arjuna Herbst</h1>
-        <p>🚀 Welcome to my website!</p>
+      <header class="main-header">
+        <h1>Hello Traveller,</h1>
+        <p>Let's fly! 🚀 </p>
       </header>
 
-      <blockquote>
-        <p>I like making stuff and putting it on the internet</p>
+      <blockquote class="right">
+        <p>
+          I'm Arjuna, a fourth year CS student @ Gonzaga University. <br/> 
+          This is my first project built using Three.js, check it out! 🎉
+        </p>
       </blockquote>
 
       <section>
@@ -79,7 +88,7 @@
       </section>
 
       <blockquote>
-        <p>The best way out is always through <br />-Robert Frost</p>
+        <p>For the wise man looks into space and he knows there is no limited dimensions. <br /><span>-Zhuangzi</span></p>
       </blockquote>
 
       <section class="left">
@@ -118,10 +127,11 @@
       </section>
 
       <blockquote>
-        <p>Thanks for watching!</p>
+        <p>Hope you enjoyed!<p>
       </blockquote>
     </main>
 
     <script type="module" src="/src/main.js"></script>
+    <script type="module" src="/src/sr.js"></script>
   </body>
 </html>

@@ -1,80 +1,134 @@
-import './style.css'
+import "./style.css";
 
-import * as THREE from 'three';
-import { GLTFLoader } from 'three/examples/jsm/loaders/GLTFLoader.js'; // Import the GLTFLoader
+import * as THREE from "three";
+import { GLTFLoader } from "three/examples/jsm/loaders/GLTFLoader.js";
 
 // screen, camera renderer
 
 const scene = new THREE.Scene();
-const camera = new THREE.PerspectiveCamera( 90, window.innerWidth / window.innerHeight, 3, 1000);
+const camera = new THREE.PerspectiveCamera(
+  80,
+  window.innerWidth / window.innerHeight,
+  3,
+  1000
+);
 const renderer = new THREE.WebGLRenderer({
-  canvas: document.querySelector('#bg'),
-})
+  canvas: document.querySelector("#bg"),
+});
 renderer.shadowMap.enabled = true;
 renderer.shadowMap.type = THREE.PCFSoftShadowMap;
 
-renderer.setPixelRatio( window.devicePixelRatio );
-renderer.setSize( window.innerWidth, window.innerHeight );
+renderer.setPixelRatio(window.devicePixelRatio);
+renderer.setSize(window.innerWidth, window.innerHeight);
 camera.position.setZ(30);
 camera.position.setX(-3);
 
 // add scene light source
 
 // point light with shadow, from three.js docs
-const light = new THREE.PointLight( 0xffffff, 200, 0, 2 );
-light.position.set( 3, 25, 10 );
+const light = new THREE.PointLight(0xffffff, 2, 0, 0);
+light.position.set(3, 15, 10);
 light.castShadow = true; // default false
-scene.add( light );
+scene.add(light);
 
 //Set up shadow properties for the light
 light.shadow.mapSize.width = 512; // default
 light.shadow.mapSize.height = 512; // default
 light.shadow.camera.near = 1; // default
-light.shadow.camera.far = 100; // default
+// light.shadow.camera.far = 100; // default
 
-//light helper, visualize where the light is and which direction it is facing on the browser
-const helper = new THREE.CameraHelper( light.shadow.camera );
-scene.add( helper );
+// Add a directional light to simulate sunlight
+const directionalLight = new THREE.DirectionalLight(0xfffff0, 0.5);
+directionalLight.position.set(-50, 50, 50); // Position the light to shine diagonally
+directionalLight.castShadow = true; // Enable shadows
+
+// Configure shadow properties for better quality
+directionalLight.shadow.mapSize.width = 2048; // Increase shadow resolution
+directionalLight.shadow.mapSize.height = 2048;
+directionalLight.shadow.camera.near = 0.1;
+directionalLight.shadow.camera.far = 1000;
+directionalLight.shadow.camera.left = -10;
+directionalLight.shadow.camera.right = 10;
+directionalLight.shadow.camera.top = 100;
+directionalLight.shadow.camera.bottom = -100;
+
+scene.add(directionalLight);
 
 // ambient light, lights up the entire scene
-const ambientLight = new THREE.AmbientLight(0xffffff);
+const ambientLight = new THREE.AmbientLight(0xffffff, 0.2);
 scene.add(ambientLight);
 
-// Load a 3D model
-function loadModel() {
+// Track the number of models that need to be loaded
+let modelsToLoad = 3; // Total number of models you are loading
+let modelsLoaded = 0;
+
+// Show the loading screen
+document.body.classList.add("loading");
+
+// Hide the loading screen when all models are loaded
+function onModelLoaded() {
+  modelsLoaded++;
+  if (modelsLoaded === modelsToLoad) {
+    document.getElementById("loading-screen").style.display = "none";
+    document.body.classList.remove("loading");
+  }
+}
+
+// Load a 3D model and use a callback to access the model
+function loadModel(fileName, onLoadCallback) {
   const loader = new GLTFLoader();
   loader.load(
-    'cookies_crunchyscan.glb', // Replace with the actual path to your GLTF/GLB model
+    fileName,
     (gltf) => {
       const model = gltf.scene;
-      model.position.set(0, 0, -10); // Set the position of the model
-      model.scale.set(200, 200, 200); // Scale the model if needed
       model.castShadow = true; // Allow the model to cast shadows
       model.receiveShadow = true; // Allow the model to receive shadows
       scene.add(model);
+
+      // Pass the loaded model to the callback
+      if (onLoadCallback) {
+        onLoadCallback(model);
+      }
+
+      onModelLoaded();
     },
     (xhr) => {
       console.log(`${(xhr.loaded / xhr.total) * 100}% loaded`); // Progress logging
     },
     (error) => {
-      console.error('An error occurred while loading the model:', error);
+      console.error("An error occurred while loading the model:", error);
     }
   );
 }
 
-// Call the function to load the model
-loadModel();
+// create 3d models
+let moonModel;
+loadModel("moon.glb", (model) => {
+  moonModel = model; // Store the loaded model in a variable
+  moonModel.position.set(-150, 0, -30); 
+  moonModel.scale.set(12, 16, 12);
+  console.log("Moon model loaded:", moonModel);
+});
 
-const cubeImage = new THREE.TextureLoader().load('cubeimg2.jpg');
+let earthModel;
+loadModel("earth.glb", (model) => {
+  earthModel = model; // Store the loaded model in a variable
+  earthModel.position.set(-120, -20, -60); 
+  earthModel.scale.set(24, 32, 24);
+  console.log("Earth model loaded:", earthModel);
+});
 
-const cube = new THREE.Mesh(
-  new THREE.BoxGeometry(20, 20, 20),
-  new THREE.MeshBasicMaterial({ map: cubeImage })
-);
-cube.position.setX(-80);
-scene.add(cube);  
+let saturnModel;
+loadModel("saturn.glb", (model) => {
+  saturnModel = model; // Store the loaded model in a variable
+  saturnModel.position.set(180, 0, -60); 
+  saturnModel.scale.set(22, 30, 22);
+  saturnModel.rotation.x += 0.4;
+  console.log("Earth model loaded:", saturnModel);
+});
 
 // add randomly placed stars to the background of the scene
+const stars = [];
 
 function addStar() {
   const geometry = new THREE.SphereGeometry(0.15, 24, 24);
@@ -87,6 +141,9 @@ function addStar() {
     .map(() => THREE.MathUtils.randFloatSpread(100));
 
   star.position.set(x, y, z);
+
+  // Store the star and its initial position
+  stars.push({ star, initialPosition: { x, y, z } });
   scene.add(star);
 }
 
@@ -94,7 +151,7 @@ Array(600).fill().forEach(addStar);
 
 // Background
 
-const spaceTexture = new THREE.TextureLoader().load('darknavyspace.jpg');
+const spaceTexture = new THREE.TextureLoader().load("darknavyspace.jpg");
 scene.background = spaceTexture;
 
 // Scroll Animation
@@ -102,13 +159,11 @@ scene.background = spaceTexture;
 function moveCamera() {
   const t = document.body.getBoundingClientRect().top;
 
-  // rotate the cube object when user scrolls
-  cube.rotation.x += 0.01;
-  cube.rotation.y += 0.005;
+  // if (moonModel){
+  //   moonModel.position.x += 1.5;
+  // }
 
-  camera.position.z = t * -0.01;
-  camera.position.x = t * -0.0002;
-  camera.rotation.y = t * -0.0002;
+  camera.position.z = t * -0.02;
 }
 
 document.body.onscroll = moveCamera;
@@ -123,12 +178,27 @@ moveCamera();
 
 // infinte loop to continously render the scene
 function animate() {
-  requestAnimationFrame( animate );
-  // cube.rotation.x += 0.001;
-  // cube.rotation.y += 0.005;
-  renderer.render( scene, camera );
-  
+  requestAnimationFrame(animate);
+
+  // shake stars gently
+  const time = Date.now() * 0.001; // Time in seconds
+
+  stars.forEach(({ star, initialPosition }, index) => {
+    const offset = index * 0.1; // Add a small offset per star to make motion unique
+    star.position.x = initialPosition.x + Math.sin(time + offset) * 0.5; // Shake in X direction
+    star.position.y = initialPosition.y + Math.cos(time + offset) * 0.5; // Shake in Y direction
+  });
+
+  // Rotate the model if it has been loaded
+  if (moonModel){
+    moonModel.rotation.y += 0.005; // Rotate the model around its Y-axis
+  }
+  if (earthModel){
+    earthModel.rotation.y += 0.01; // Rotate the model around its Y-axis
+  }
+  if (saturnModel){
+    saturnModel.rotation.y += 0.04; // Rotate the model around its Y-axis
+  }
+  renderer.render(scene, camera);
 }
-animate()
-
-
+animate();
