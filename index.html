@@ -9,86 +9,138 @@
     <script src="https://unpkg.com/scrollreveal@4.0.0/dist/scrollreveal.min.js"></script>
   </head>
   <body>
-    <div id="loading-screen">
-      <div class="loading-text">Loading...</div>
+    <div
+      id="loading-screen"
+      style="
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100vw;
+        height: 100vh;
+        background-color: #000;
+        color: #fff;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        z-index: 1000;
+        overflow: hidden;
+      "
+    >
+      <div class="loading-text" style="font-family: Courier, monospace">
+        Loading Space...
+      </div>
     </div>
-    
+
     <canvas id="bg"></canvas>
 
     <main>
       <header class="main-header">
         <h1>Hello Traveller,</h1>
-        <p>Let's fly! 🚀 </p>
+        <p>Let's fly!</p>
       </header>
+      <div class="main-info">
+        <div class="main-links">
+          <span class="social-links"
+            ><a href="https://www.arjunaherbst.com" target="_blank"
+              >website</a
+            ></span
+          >
+          <span class="social-links"
+            ><a href="https://www.github.com/arjuna26" target="_blank"
+              >github</a
+            ></span
+          >
+          <span class="social-links"
+            ><a href="https://www.linkedin.com/in/arjuna-herbst" target="_blank"
+              >linkedin</a
+            ></span
+          >
+        </div>
+        <blockquote class="right">
+          <p>
+            i'm Arjuna, a fourth year cs student @ Gonzaga. <br />
+            this is my first project built using three.js, check it out! 🎉
+          </p>
+        </blockquote>
+      </div>
 
-      <blockquote class="right">
+      <section class="left">
+        <h2>📜 About Me</h2>
         <p>
-          I'm Arjuna, a fourth year CS student @ Gonzaga University. <br/> 
-          This is my first project built using Three.js, check it out! 🎉
-        </p>
-      </blockquote>
-
-      <section>
-        <h2>📜 Manifesto</h2>
-        <p>
-          Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do
-          eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad
-          minim veniam, quis nostrud exercitation ullamco laboris nisi ut
-          aliquip ex ea commodo consequat. Duis aute irure dolor in
-          reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla
-          pariatur. Excepteur sint occaecat cupidatat non proident, sunt in
-          culpa qui officia deserunt mollit anim id est laborum.
+          hi, let me tell you a little bit about myself. I was born and raised
+          in Saint Paul, Minnesota. There, I grew up with my younger brother and
+          my parents. I attented Yinghua Academy Chinese Immersion for K-8th
+          grade, where I not only learned to speak, write, and read Mandarin,
+          but also found an appreciation of my Chinese heritage. From there, I
+          went to Roseville Area High School, in Roseville, MN. I continued
+          playing soccer for my club and school, and during my junior year I
+          decided to take AP Computer Science Principles. I had an amazing
+          teacher, Mr. B, who taught me the basics of programming and computer
+          science. This inspired me to pursue a degree in cs, and I began
+          applying to universities with this in mind.
         </p>
 
         <p>
-          Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do
-          eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad
-          minim veniam, quis nostrud exercitation ullamco laboris nisi ut
-          aliquip ex ea commodo consequat. Duis aute irure dolor in
-          reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla
-          pariatur. Excepteur sint occaecat cupidatat non proident, sunt in
-          culpa qui officia deserunt mollit anim id est laborum.
+          I applied to Gonzaga University after hearing about them from March
+          Madness (yes really), and I was accepted with a degree path of b.s. in
+          cs. In my first year, I took all the required Gonzaga courses, cs
+          included. I didn't know how I liked it at first. The first semester of
+          college was a big adjustment for me, and this adjustment honestly
+          continued on into my second semester. I was just coding to get my
+          homework done. Besides all that, I had a great time at Gonzaga. I met
+          a lot of people from all over the country, and continued to play
+          soccer for fun + go zagsmbb 🏀.
+        </p>
+        <p>
+          Sophomore year was better, one group project in particular. I worked
+          with a team of 3 other students to build a replica of Yahtzee, and it
+          was a very different experience from any other class at Gonzaga thus
+          far. I learned a lot about working with others and different team
+          dynamics. It was a good experience learning to build something
+          alongside a team, and it reminded me why I was studying cs in the
+          first place. Moving into junior year, life was moving fast. The
+          pressure was starting to build, but I kept my head and continued with
+          my studies. One of my courses, database management, unintentionally
+          helped me discover something that I am genuinely passionate about in
+          the world of cs.
+        </p>
+        <p>
+          For the course final project, we built a fullstack application that
+          had to involve querying some sort of SQL database. I used React to
+          build my frontend, and it was my first time using a tool like react. I
+          started with a Youtube tutorial, and then tailored it to meet the
+          needs of my course project. I thought React was super cool, so I
+          wanted to continue using tools similar to it to get a better
+          understanding of how to create frontends.
         </p>
 
-        <p>
-          Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do
-          eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad
-          minim veniam, quis nostrud exercitation ullamco laboris nisi ut
-          aliquip ex ea commodo consequat. Duis aute irure dolor in
-          reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla
-          pariatur. Excepteur sint occaecat cupidatat non proident, sunt in
-          culpa qui officia deserunt mollit anim id est laborum.
-        </p>
+        <p></p>
       </section>
 
       <section class="light">
-        <h2>👩🏽‍🚀 Projects</h2>
+        <h2>👩🏽‍🚀 Now we're here!</h2>
 
         <p>
-          Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do
-          eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad
-          minim veniam, quis nostrud exercitation ullamco laboris nisi ut
-          aliquip ex ea commodo consequat. Duis aute irure dolor in
-          reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla
-          pariatur. Excepteur sint occaecat cupidatat non proident, sunt in
-          culpa qui officia deserunt mollit anim id est laborum.
-        </p>
-
-        <h2>🏆 Accomplishments</h2>
-
-        <p>
-          Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do
-          eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad
-          minim veniam, quis nostrud exercitation ullamco laboris nisi ut
-          aliquip ex ea commodo consequat. Duis aute irure dolor in
-          reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla
-          pariatur. Excepteur sint occaecat cupidatat non proident, sunt in
-          culpa qui officia deserunt mollit anim id est laborum.
+          The summer before senior year, I travelled with my family to my mom's
+          home country, Singapore. From there, we went to Nepal, where we stayed
+          in Kathmandu and Pokhara for a few weeks. It was an amazing
+          experience, and I saw so many beautiful things. It inspired me to pay
+          attention to detail more, which has been very helpful. Now, I'm
+          entering my final semester at Gonzaga, and I'm really happy with how
+          this project turned out. I'm working on the frontend for my senior
+          capstone project as well, also using a javascript framework. Using
+          tools like these has been super enjoyable, it's so fun to see what
+          combinations of different libariries and plugins you can use to be as
+          creative as you want. I have learned a lot the past few years, and I'm
+          excited to see where life takes me next. Continue scrolling to see more!
         </p>
       </section>
 
       <blockquote>
-        <p>For the wise man looks into space and he knows there is no limited dimensions. <br /><span>-Zhuangzi</span></p>
+        <p>
+          For the wise man looks into space and he knows there is no limited
+          dimensions. <br /><span>-Zhuangzi</span>
+        </p>
       </blockquote>
 
       <section class="left">
@@ -127,8 +179,33 @@
       </section>
 
       <blockquote>
-        <p>Hope you enjoyed!<p>
+        <p>
+          Hope you enjoyed!<br /><span
+            >-New huge fan of <a href="https://threejs.org/">three.js</a></span
+          >
+        </p>
+        <p></p>
       </blockquote>
+
+      <footer>
+        <div class="footer-box">
+          <p>made by Arjuna Herbst :D</p>
+          <p>built with ❤️ using vite.js, three.js, scrollreveal.js</p>
+          <ul>
+            <li>
+              <a
+                href="2025_Resume.pdf"
+                target="_blank"
+                class="button"
+                download="ArjunaHerbstResume"
+                >download my cv as pdf</a
+              >
+            </li>
+            <li><a href="https://www.instagram.com/qrjuna">my instagram</a></li>
+            <li><a href="https://vsco.co/qrjuna/gallery">my vsco</a></li>
+          </ul>
+        </div>
+      </footer>
     </main>
 
     <script type="module" src="/src/main.js"></script>

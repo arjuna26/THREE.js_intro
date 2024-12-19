@@ -20,8 +20,7 @@ renderer.shadowMap.type = THREE.PCFSoftShadowMap;
 
 renderer.setPixelRatio(window.devicePixelRatio);
 renderer.setSize(window.innerWidth, window.innerHeight);
-camera.position.setZ(30);
-camera.position.setX(-3);
+
 
 // add scene light source
 
@@ -59,7 +58,7 @@ const ambientLight = new THREE.AmbientLight(0xffffff, 0.2);
 scene.add(ambientLight);
 
 // Track the number of models that need to be loaded
-let modelsToLoad = 3; // Total number of models you are loading
+let modelsToLoad = 5; // Total number of models you are loading
 let modelsLoaded = 0;
 
 // Show the loading screen
@@ -69,9 +68,12 @@ document.body.classList.add("loading");
 function onModelLoaded() {
   modelsLoaded++;
   if (modelsLoaded === modelsToLoad) {
-    document.getElementById("loading-screen").style.display = "none";
-    document.body.classList.remove("loading");
-  }
+    const loadingScreen = document.getElementById("loading-screen");
+      loadingScreen.style.opacity = "0"; // Optional fade-out effect
+      setTimeout(() => {
+        loadingScreen.remove();
+      }, 500); // Adjust timeout to match fade-out duration
+    } 
 }
 
 // Load a 3D model and use a callback to access the model
@@ -85,7 +87,8 @@ function loadModel(fileName, onLoadCallback) {
       model.receiveShadow = true; // Allow the model to receive shadows
       scene.add(model);
 
-      // Pass the loaded model to the callback
+      // Pass the loaded model to the callback, we need a callback function to store the models properly in the variables,
+      // otherwise the models will be undefined outside of the loader function. the Callback function is also useful for the loading screen
       if (onLoadCallback) {
         onLoadCallback(model);
       }
@@ -101,7 +104,7 @@ function loadModel(fileName, onLoadCallback) {
   );
 }
 
-// create 3d models
+// create 3d models, basically here i am loading each model from its .glb file using the function ^^
 let moonModel;
 loadModel("moon.glb", (model) => {
   moonModel = model; // Store the loaded model in a variable
@@ -113,7 +116,7 @@ loadModel("moon.glb", (model) => {
 let earthModel;
 loadModel("earth.glb", (model) => {
   earthModel = model; // Store the loaded model in a variable
-  earthModel.position.set(-120, -20, -60); 
+  earthModel.position.set(-110, -20, -60); 
   earthModel.scale.set(24, 32, 24);
   console.log("Earth model loaded:", earthModel);
 });
@@ -124,7 +127,25 @@ loadModel("saturn.glb", (model) => {
   saturnModel.position.set(180, 0, -60); 
   saturnModel.scale.set(22, 30, 22);
   saturnModel.rotation.x += 0.4;
-  console.log("Earth model loaded:", saturnModel);
+  console.log("Saturn model loaded:", saturnModel);
+});
+
+let marsModel;
+loadModel("mars.glb", (model) => {
+  marsModel = model; // Store the loaded model in a variable
+  marsModel.position.set(150, -100, -85); 
+  marsModel.scale.set(3, 3, 3);
+  console.log("mars model loaded:", marsModel);
+});
+
+let rocketModel;
+loadModel("rocket-ship.glb", (model) => {
+  rocketModel = model; // Store the loaded model in a variable
+  rocketModel.position.set(0, 1, -25); 
+  rocketModel.scale.set(7, 7, 7);
+  rocketModel.rotation.x -= 1.4;
+  rocketModel.rotation.y += 0.22;
+  console.log("rocket model loaded:", rocketModel);
 });
 
 // add randomly placed stars to the background of the scene
@@ -132,8 +153,13 @@ const stars = [];
 
 function addStar() {
   const geometry = new THREE.SphereGeometry(0.15, 24, 24);
-  const material = new THREE.MeshStandardMaterial({ color: 0xffffff });
+  const material = new THREE.MeshBasicMaterial({ color: 0xfff5b0 });
   const star = new THREE.Mesh(geometry, material);
+  // Add a custom property for pulsing
+  star.pulseDirection = 1; // 1 = brightening, -1 = dimming
+  star.pulseSpeed = THREE.MathUtils.randFloat(0.01, 0.03); // Random speed for variation
+
+  // Enable shadows for the stars
   star.receiveShadow = true;
 
   const [x, y, z] = Array(3)
@@ -147,7 +173,7 @@ function addStar() {
   scene.add(star);
 }
 
-Array(600).fill().forEach(addStar);
+Array(1600).fill().forEach(addStar);
 
 // Background
 
@@ -159,46 +185,80 @@ scene.background = spaceTexture;
 function moveCamera() {
   const t = document.body.getBoundingClientRect().top;
 
-  // if (moonModel){
-  //   moonModel.position.x += 1.5;
-  // }
-
   camera.position.z = t * -0.02;
+
+  if (rocketModel){
+    rocketModel.rotation.z += 0.0003; // Rotate the model around its Y-axis
+    rocketModel.position.x += 0.75; // Move the model to the right
+  }
 }
 
 document.body.onscroll = moveCamera;
 moveCamera();
 
-// //Create a plane that receives shadows (but does not cast them)
-// const planeGeometry = new THREE.PlaneGeometry( 64, 64, 20, 20 );
-// const planeMaterial = new THREE.MeshDepthMaterial( { color: 0xffffff } )
-// const plane = new THREE.Mesh( planeGeometry, planeMaterial );
-// plane.receiveShadow = true;
-// scene.add( plane );
 
 // infinte loop to continously render the scene
 function animate() {
   requestAnimationFrame(animate);
 
-  // shake stars gently
+  // Move stars around the scene
   const time = Date.now() * 0.001; // Time in seconds
 
   stars.forEach(({ star, initialPosition }, index) => {
+
+    
+    // // This can be used to move geometries or models around in an animation loop, also for a list of objects,
+    // // such as the stars in this project. This could be reused with a single object as well. Use properties of
+    // // sin/cos to create circular random motion, and add a small offset to each object to make the motion unique.
+
     const offset = index * 0.1; // Add a small offset per star to make motion unique
     star.position.x = initialPosition.x + Math.sin(time + offset) * 0.5; // Shake in X direction
     star.position.y = initialPosition.y + Math.cos(time + offset) * 0.5; // Shake in Y direction
+
+    // // This effect can be used to create a pulsing effect for geometries or models. The brightness of the object
+    // // is updated in the animation loop, creating a pulsing effect between two colors. This can be used to draw
+    // // attention to an object. 
+
+    // Get current brightness (based on the R/G/B values, which are the same for white and gray)
+    const currentBrightness = star.material.color.r;
+
+
+    // // Here, I used the same effect as the stars, but on the rocketship to make it look like its hovering!
+    // // I also added a rotation to the rocketship to make it look like its flying through space.
+    rocketModel.position.y = 1 + Math.sin(time) * 0.4; // Hover in Y direction
+
+    // Update brightness
+    if (star.pulseDirection === 1) {
+      // Brightening
+      star.material.color.r = Math.min(1, currentBrightness + star.pulseSpeed);
+      star.material.color.g = Math.min(1, currentBrightness + star.pulseSpeed);
+      star.material.color.b = Math.min(1, currentBrightness + star.pulseSpeed);
+
+      if (currentBrightness >= 1) star.pulseDirection = -1; // Reverse direction
+    } else {
+      // Dimming  
+      star.material.color.r = Math.max(0.8, currentBrightness - star.pulseSpeed);
+      star.material.color.g = Math.max(0.8, currentBrightness - star.pulseSpeed);
+      star.material.color.b = Math.max(0.8, currentBrightness - star.pulseSpeed);
+
+      if (currentBrightness <= 0.8) star.pulseDirection = 1; // Reverse direction
+    }
   });
 
-  // Rotate the model if it has been loaded
+  // Rotate the models if they have been loaded
   if (moonModel){
-    moonModel.rotation.y += 0.005; // Rotate the model around its Y-axis
+    moonModel.rotation.y += 0.0025; // Rotate the model around its Y-axis
   }
   if (earthModel){
-    earthModel.rotation.y += 0.01; // Rotate the model around its Y-axis
+    earthModel.rotation.y += 0.005; // Rotate the model around its Y-axis
   }
   if (saturnModel){
-    saturnModel.rotation.y += 0.04; // Rotate the model around its Y-axis
+    saturnModel.rotation.y += 0.02; // Rotate the model around its Y-axis
   }
+  if (marsModel){
+    marsModel.rotation.y += 0.001; // Rotate the model around its Y-axis
+  }
+
   renderer.render(scene, camera);
 }
 animate();
