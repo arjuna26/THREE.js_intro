@@ -2,9 +2,9 @@
 <html lang="en">
   <head>
     <meta charset="UTF-8" />
-    <link rel="icon" type="image/svg+xml" href="/vite.svg" />
+    <link rel="icon" type="image/svg+xml" href="space.svg" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Arjuna's Website</title>
+    <title>Arjuna's Space</title>
     <link rel="stylesheet" href="/src/styles.css" />
     <script src="https://unpkg.com/scrollreveal@4.0.0/dist/scrollreveal.min.js"></script>
   </head>
@@ -69,7 +69,7 @@
         <p>
           hi, let me tell you a little bit about myself. I was born and raised
           in Saint Paul, Minnesota. There, I grew up with my younger brother and
-          my parents. I attented Yinghua Academy Chinese Immersion for K-8th
+          my parents. I attended Yinghua Academy Chinese Immersion for K-8th
           grade, where I not only learned to speak, write, and read Mandarin,
           but also found an appreciation of my Chinese heritage. From there, I
           went to Roseville Area High School, in Roseville, MN. I continued
@@ -98,11 +98,18 @@
           far. I learned a lot about working with others and different team
           dynamics. It was a good experience learning to build something
           alongside a team, and it reminded me why I was studying cs in the
-          first place. Moving into junior year, life was moving fast. The
-          pressure was starting to build, but I kept my head and continued with
-          my studies. One of my courses, database management, unintentionally
-          helped me discover something that I am genuinely passionate about in
-          the world of cs.
+          first place.
+        </p>
+      </section>
+
+      <section class="light">
+        <h2>👩🏽‍🚀 Now we're here!</h2>
+        <p>
+          Moving into junior year, life was moving fast. The pressure was
+          starting to build, but I kept my head and continued with my studies.
+          One of my courses, database management, unintentionally helped me
+          discover something that I am genuinely passionate about in the world
+          of cs.
         </p>
         <p>
           For the course final project, we built a fullstack application that
@@ -113,12 +120,6 @@
           wanted to continue using tools similar to it to get a better
           understanding of how to create frontends.
         </p>
-
-        <p></p>
-      </section>
-
-      <section class="light">
-        <h2>👩🏽‍🚀 Now we're here!</h2>
 
         <p>
           The summer before senior year, I travelled with my family to my mom's
@@ -132,7 +133,7 @@
           tools like these has been super enjoyable, it's so fun to see what
           combinations of different libariries and plugins you can use to be as
           creative as you want. I have learned a lot the past few years, and I'm
-          excited to see where life takes me next. Continue scrolling to see more!
+          excited to see where life takes me next! ⭐
         </p>
       </section>
 
@@ -144,38 +145,87 @@
       </blockquote>
 
       <section class="left">
-        <h2>🌮 Work History</h2>
+        <h2>📓 Relevant coursework</h2>
 
-        <h3>McDonalds</h3>
         <p>
-          Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do
-          eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad
-          minim veniam, quis nostrud exercitation ullamco laboris nisi ut
-          aliquip ex ea commodo consequat. Duis aute irure dolor in
-          reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla
-          pariatur. Excepteur sint occaecat cupidatat non proident, sunt in
-          culpa qui officia deserunt mollit anim id est laborum.
+          I have taken a variety of courses at Gonzaga that have helped me grow
+          my skillset in the world of cs. Some of the courses I have taken
+          include:
         </p>
-        <h3>Burger King</h3>
+        <ul>
+          <li>CPSC224 Software Development</li>
+          <li>CPSC223 Data Structures</li>
+          <li>CPSC321 Database Management</li>
+          <li>CPSC322 Data Science Algorithms</li>
+          <li>CPSC331 UI/UX Principles</li>
+          <li>CPSC450 Algorithm Design & Analysis</li>
+        </ul>
+      </section>
+
+      <section class="opaque">
+        <h2>📬 Contact Me</h2>
+
         <p>
-          Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do
-          eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad
-          minim veniam, quis nostrud exercitation ullamco laboris nisi ut
-          aliquip ex ea commodo consequat. Duis aute irure dolor in
-          reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla
-          pariatur. Excepteur sint occaecat cupidatat non proident, sunt in
-          culpa qui officia deserunt mollit anim id est laborum.
+          I'm always open to new opportunities and collaborations. If you have
+          any questions or just want to chat, feel free to reach using the form
+          below.
         </p>
-        <h3>Taco Bell</h3>
-        <p>
-          Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do
-          eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad
-          minim veniam, quis nostrud exercitation ullamco laboris nisi ut
-          aliquip ex ea commodo consequat. Duis aute irure dolor in
-          reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla
-          pariatur. Excepteur sint occaecat cupidatat non proident, sunt in
-          culpa qui officia deserunt mollit anim id est laborum.
-        </p>
+        <form action="" class="contact__form" id="contact-form">
+          <div class="contact__group">
+            <div class="contact__box">
+              <input
+                type="text"
+                name="user_name"
+                class="contact__input"
+                id="name"
+                required
+                placeholder="First name"
+              />
+              <label for="name" class="contact__label">First Name</label>
+            </div>
+
+            <div class="contact__box">
+              <input
+                type="email"
+                name="user_email"
+                class="contact__input"
+                id="email"
+                required
+                placeholder="Email"
+              />
+              <label for="email" class="contact__label">Email Address</label>
+            </div>
+          </div>
+
+          <div class="contact__box">
+            <input
+              type="text"
+              name="user_subject"
+              class="contact__input"
+              id="subject"
+              required
+              placeholder="Subject"
+            />
+            <label for="subject" class="contact__label">Subject</label>
+          </div>
+
+          <div class="contact__box contact__area">
+            <textarea
+              name="user_message"
+              id="message"
+              class="contact__input"
+              required
+              placeholder="Enter Message..."
+            ></textarea>
+            <label for="message" class="contact__label">Message</label>
+          </div>
+
+          <p class="contact__message" id="contact-message"></p>
+
+          <button type="submit" class="contact__button">
+            <i class="ri-send-plane-2-line"></i> Send Email
+          </button>
+        </form>
       </section>
 
       <blockquote>
@@ -210,5 +260,6 @@
 
     <script type="module" src="/src/main.js"></script>
     <script type="module" src="/src/sr.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@emailjs/browser@4/dist/email.min.js"></script>
   </body>
 </html>

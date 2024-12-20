@@ -141,7 +141,7 @@ loadModel("mars.glb", (model) => {
 let rocketModel;
 loadModel("rocket-ship.glb", (model) => {
   rocketModel = model; // Store the loaded model in a variable
-  rocketModel.position.set(0, 1, -25); 
+  rocketModel.position.set(-2, 1, -25); 
   rocketModel.scale.set(7, 7, 7);
   rocketModel.rotation.x -= 1.4;
   rocketModel.rotation.y += 0.22;
@@ -173,7 +173,7 @@ function addStar() {
   scene.add(star);
 }
 
-Array(1600).fill().forEach(addStar);
+Array(1200).fill().forEach(addStar);
 
 // Background
 
@@ -225,7 +225,9 @@ function animate() {
 
     // // Here, I used the same effect as the stars, but on the rocketship to make it look like its hovering!
     // // I also added a rotation to the rocketship to make it look like its flying through space.
-    rocketModel.position.y = 1 + Math.sin(time) * 0.4; // Hover in Y direction
+    if(rocketModel.position.y) {
+      rocketModel.position.y = 1 + Math.sin(time) * 0.5; // Hover in Y direction
+    }
 
     // Update brightness
     if (star.pulseDirection === 1) {
