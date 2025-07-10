@@ -143,12 +143,20 @@ blockquote span a:hover {
   padding: 0;
   text-align: right;
   margin-bottom: var(--spacing);
+  padding-left: 20px;
 }
 
 .right p {
   font-family: "Space Mono", monospace;
   font-size: 1.35rem;
+  text-align: left;
 }
+
+.right ul, h1, h2, h3 {
+  text-align: left;
+}
+
+
 
 /* contact form */
 .contact__form,
@@ -259,4 +267,16 @@ footer {
 
 .footer-box a:hover {
   color: red;
+}
+
+#space-caption {
+  transition: opacity 0.5s ease;
+}
+
+@media (max-width: 768px) {
+  #space-caption {
+    font-size: 1.25rem;
+    bottom: 5%;
+    padding: 0.5rem 1rem;
+  }
 }
