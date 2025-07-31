@@ -9,14 +9,6 @@
   font-size: 0.9rem;
 }
 
-    /* loading screen */
-/* this comment ^^^ is old. at first i had styling for the 
-    loading screen in here, but then found it to be better
-    to load the styling inline directly in index.html, rather
-    than waiting for styles.css to import, which would cause
-    flickering on page load
-*/ 
-
 li {
   list-style-type: square;
 }
